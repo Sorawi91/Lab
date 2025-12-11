@@ -9,7 +9,7 @@ int main () {
     // char text [ 50 ] = "I Love You" ;
 
     char out [ 50 ] ;
-    gets(text);
+    fgets(text);
 
     reverse (text,out);
 
@@ -31,4 +31,5 @@ void reverse (char str1[], char str2[]){
     }
 
     str2[j] = '\0'; // ให้ str[j] ปิดท้ายด้วย \0 สำคัญคือ ต้องปิดท้ายด้วย \0 เสมอ
+
 }
