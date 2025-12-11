@@ -14,6 +14,8 @@ int main () {
     reverse (text,out);
 
     printf("%s",out);
+
+    return 0;
 }
 
 void reverse (char str1[], char str2[]){
@@ -33,3 +35,4 @@ void reverse (char str1[], char str2[]){
     str2[j] = '\0'; // ให้ str[j] ปิดท้ายด้วย \0 สำคัญคือ ต้องปิดท้ายด้วย \0 เสมอ
 
 }
+
