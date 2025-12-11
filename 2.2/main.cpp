@@ -1,12 +1,15 @@
 #include <stdio.h>
 
-void reverse (char str1[] , char *str2);
+void reverse (char str1[] , char *str2); 
+//กำหนดฟังชั่นทดลอง
 
 int main () {
     char text [50];
-    char *out;
+    char *out; 
+    //สร้างตัวเเปลที่ใช้รับค่าจากผู้ใช้เเละตัวเเปลที่จะคาย output ที่ส่งไปในฟังชั่นออกมา
 
-    reverse(text,out);
+    reverse(text,out); 
+    //เรียกใช้ฟังัชั่น
 
     printf("%s",out);
 
@@ -14,17 +17,23 @@ int main () {
 }
 
 void reverse (char str1[]  , char *str2){
-    gets(str1);
-    
-    int len = 0;
+    fgets(str1,50,stdin);
+    //รับค่าโดยใช้ fgets(ตัวเเปลที่จะเก็บ,ขนาดของ Array สูงสุด ,เเหล่งข้อมูล )
+    int len = 0; 
+    //กำหนดให้ len เป็นขนาดของ Array
     while (str1[len] != '\0') {
-        len++;
+        //ทำการ loop while โดยให้ str1[len] มีค่าเท่ากับ 0 ลูปจนกว่าจะเป็น /0
+        len++; 
+        //บวก 1 ไปเรื่อยๆ 
     }
 
-    int b = 0;
+    int b = 0; 
+    //กำหนด b ย่อมาจาก forward หรือถอยหลัง
 
     for (int i = len - 1; i >= 0 ; i--) {
+        //ใช้ loop for โดยให้ i = ค่าของ len = 10 เเละ - ด้วย 1 เเละวนซ้ำจนกว่า i จะมีค่ามากกว่าหรือเท่ากับ 0 โดยให้ลดลงทีล่ะ 1 
         str2[b] = str1[i];
+        //เเละให้ str1[i] วนซ้ำไปเรื่อยๆตามเลขของ i เเละนำค่าไปเก็บใน str[b] โดยจะขยับช่องที่ใช้ในเก็บค่าไปทีล่ะ 1 โดยบรรทัดข้างล่าง
         b++;
     }
 }
