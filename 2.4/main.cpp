@@ -22,22 +22,33 @@ int main() {
 
 void explode(char str1[], char str2[20][20], char splitter, int *count) {
     int wordIndex = 0; 
+      // ตัวชี้ตำแหน่งคำ
     int charIndex = 0; 
+    //ตัวชี้ตำแหน่งตัวอักษร
 
+    // วนลูปตรวจสอบทุกตัวอักษรใน str1 จนกว่าจะเจอจุดสิ้นสุด \0
     for (int index = 0; str1[index] != '\0'; index++) {
         
+        // ถ้าตัวอักษรที่ "ไม่ใช่" ตัวแบ่ง
         if (str1[index] != splitter) {
+            // เก็บตัวอักษรลงในอาเรย์ str2
             str2[wordIndex][charIndex] = str1[index]; 
             charIndex++; 
+            // ขยับไปช่องถัดไปเพื่อรอรับตัวอักษรหน้า
         } 
+         // ถ้าเจอตัวเเบ่ง
         else {
             str2[wordIndex][charIndex] = '\0'; 
+            // ปิดท้ายคำปัจจุบันด้วย \0
             wordIndex++; 
+            // ขยับไปเริ่มคำใหม่ (แถวถัดไป)
             charIndex = 0; 
+            // รีเซ็ตตำแหน่งตัวอักษรให้เริ่มที่ 0 ใหม่
         }
     }
-    
+    //ปิดท้ายคำสุดท้ายด้วย \0 ตลอด
     str2[wordIndex][charIndex] = '\0';
 
+    //ส่งค่าจะนวนกลับไป
     *count = wordIndex + 1;
 }
