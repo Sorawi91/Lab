@@ -5,10 +5,12 @@ void explode (char str1[],char splitter , char str2[20][10] , int *count);
 
 
 int main() {
-    char Ex[] = "I/Love/You";
+    char Ex[50];
     char sprit = '/';
     char out [20][10];
     int num = 0;
+
+    fgets(Ex,50,stdin);
     
     //กำหนดตัวเเปร
     explode(Ex,sprit,out,&num);
