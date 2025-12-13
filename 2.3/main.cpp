@@ -22,23 +22,23 @@ int main() {
 }
 
 void explode (char str1[],char splitter , char str2[20][10] , int *count){
-    int x = 0;
-    int z = 0;
+    int col = 0;
+    int radius = 0;
 
     // loop for โดย ลูปตามตัวอักษรไปจนถึง \0 เเละเช็คว่ามันมีไม่มี \ ถ้าไม่มีให้ยัดลงไปใน str2
     for (int i = 0 ; str1[i] != '\0' ; i++) {
         if (str1[i] != splitter) {
-            str2[x][z] = str1[i];
-            z++;
+            str2[col][radius] = str1[i];
+            radius++;
         } else { 
             //ถ้าเจอ / ก็ให้ยัด \0 เข้าไปเเล้วเเละ ขยับตัวอักษรไปอีกตัวด้วย x เเละรีเซ็ตตำเเหน่งให้เป็น 0
-            str2[x][z] = '\0';
-            x++;
-            z = 0;
+            str2[col][radius] = '\0';
+            col++;
+            radius = 0;
         }
     }
 
-    str2[x][z] = '\0';
+    str2[col][radius] = '\0';
 
-    *count = x + 1;
+    *count = col + 1;
 }
