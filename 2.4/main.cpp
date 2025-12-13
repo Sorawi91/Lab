@@ -35,14 +35,17 @@ void explode(char str1[] , char str2[20][20] ,char spliter ,int *count){
         //ให้ลูปไปจนถึง /0 ของ str[1]
         
         if (str1[i] != spliter) {
+
             str2[colum][radius] = str1[i];
             //มันจะยัด str1[i] เข้าไปที่ str2[c] เเละรูปครั้งหน้ามันจะเลื่อนเเถว ไป อีกบรรทัดหนึ่ง
             radius++;
 
         } else {
+
             str2[colum][radius] = '\0'; 
             //ถ้ามันเจอ / มัันก็จะจบ เเละไปเริ่มที่ตำเเหน่งเเรกใหม่เโดยให้ r = 0;เเละ ลูปครั้งหน้ามันก็จะเริ่มที่ r 0 เเละ ขยับหลักไปอีกหนึ่งหลัก
             colum++; 
+
             radius = 0;
             // ขยับหลัก
         }
@@ -51,4 +54,3 @@ void explode(char str1[] , char str2[20][20] ,char spliter ,int *count){
 
     *count = colum + 1;
 }
-     
