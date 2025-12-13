@@ -4,10 +4,12 @@
 void explode(char str1[] , char str2[20][20] ,char spliter ,int *count);
      
 int main () {
-    char stater1[] = "I/Love/You";
+    char stater1[50];
     char stater2[20][20];
     // stater2 [เก็บได้กี่ตัวอักษร][สูงสุดได้้กี่ตัวอักษร]
 
+    fgets(stater1,50,stdin);
+    
     char split = '/';
     int numberCount = 0;
 
