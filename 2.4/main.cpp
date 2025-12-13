@@ -1,54 +1,40 @@
 #include <stdio.h>
 #include <string.h>
 
-void explode(char str1[] , char str2[20][20] ,char spliter ,int *count);
-     
-int main () {
-    char stater1[] = "I/Love/You";
-    char stater2[20][20];
-    // stater2 [เก็บได้กี่ตัวอักษร][สูงสุดได้้กี่ตัวอักษร]
+void explode(char str1[], char str2[20][20], char splitter, int *count);
 
+int main() {
+    char text[] = "I/Love/You";
+    char result[20][20]; 
     char split = '/';
-    int numberCount = 0;
+    int num = 0;
 
-    explode(stater1,stater2,split,&numberCount);
+    explode(text, result, split, &num);
 
-    for (int i = 0 ; i < numberCount ; i++) {
-        printf("str[%d] = \"%s\"\n", i, stater2[i]);
+    for (int i = 0; i < num; i++) {
+        printf("str[%d] = \"%s\"\n", i, result[i]);
     }
 
-    printf("count = %d",numberCount);
+    printf("count = %d", num);
     
     return 0;
-} 
+}
 
-void explode(char str1[] , char str2[20][20] ,char spliter ,int *count){
-    int colum = 0;
-    // c คือ คอลัม ที่ไว้ขยับตัวอักษร เเละเป็น ตำเเหน่งที่เก็บตัวอักษร 
-    
-    int radius = 0; //1 0 1 0 1
-    //เป็นเเค่เเถว เเละขนาดตัวอักษรสูงสุด
+void explode(char str1[], char str2[20][20], char splitter, int *count) {
+    int w = 0; 
+    int c = 0; 
 
-    for (int i = 0 ; str1[i] != '\0' ; i++) {
-        //ให้ลูปไปจนถึง /0 ของ str[1]
-        
-        if (str1[i] != spliter) {
-
-            str2[colum][radius] = str1[i];
-            //มันจะยัด str1[i] เข้าไปที่ str2[c] เเละรูปครั้งหน้ามันจะเลื่อนเเถว ไป อีกบรรทัดหนึ่ง
-            radius++;
-
+    for (int i = 0; str1[i] != '\0'; i++) {
+        if (str1[i] != splitter) {
+            str2[w][c] = str1[i];
+            c++;
         } else {
-
-            str2[colum][radius] = '\0'; 
-            //ถ้ามันเจอ / มัันก็จะจบ เเละไปเริ่มที่ตำเเหน่งเเรกใหม่เโดยให้ r = 0;เเละ ลูปครั้งหน้ามันก็จะเริ่มที่ r 0 เเละ ขยับหลักไปอีกหนึ่งหลัก
-            colum++; 
-
-            radius = 0;
-            // ขยับหลัก
+            str2[w][c] = '\0';
+            w++;
+            c = 0;
         }
     }
-    str2[colum][radius] = '\0';
+    str2[w][c] = '\0';
 
-    *count = colum + 1;
+    *count = w + 1;
 }
