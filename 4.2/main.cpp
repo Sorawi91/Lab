@@ -1,28 +1,35 @@
 #include <stdio.h>
 
-// ประกาศฟังก์ชัน
-void go( int ***p, int **z );
+void update(int ***target, int **source);
+void print(const char *label, int **pp);
 
-int main() {
-    int *b = new int ; *b = 10 ; 
-    // b เก็บที่อยู่ของเลข 10
-    int *c = new int ; *c = 20 ; 
-    // c เก็บที่อยู่ของเลข 20
-    int **a ;                    
-    // a เป็น Pointer 2 ดาว (เอาไว้ชี้ b หรือ c อีกที)
-
-    // รอบแรก: ส่งที่อยู่ของ a และ b ไป
-    go( &a, &b ); 
-    printf( "%d %p %p %p \n", **a, *a, a, &a );
-    
-    // รอบสอง: ส่งที่อยู่ของ a และ c ไป
-    go( &a, &c );
-    printf( "%d %p %p %p \n", **a, *a, a, &a );
-    
-    return 0 ;
+void update(int ***target, int **source)
+{
+    *target = source;
 }
 
-// ฟังก์ชันที่เเขียนเพิ่ม
-void go( int ***p, int **z ) {
-    *p = z;
+void print(const char *label, int **pp)
+{
+    printf("%s\n", label);
+    printf("Value via **pp: %d\n", **pp);
+    printf("*pp (points to int*): %p\n", (void *)*pp);
+    printf("pp  (int** itself):   %p\n\n", (void *)pp);
 }
+
+int main(void)
+{
+    int a = 10;
+    int b = 20;
+    int *pa = &a;
+    int *pb = &b;
+    int **handle = NULL;
+
+    update(&handle, &pa);
+    print("After pointing to a", handle);
+
+    update(&handle, &pb);
+    print("After pointing to b", handle);
+
+    return 0;
+}
+
