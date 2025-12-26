@@ -1,25 +1,25 @@
 #include <stdio.h>
 
-struct student {
+typedef struct {
 	char name[ 20 ] ;
 	int age ;
 	char sex ;
 	float gpa ;
-};
+} Students;
 
-void upgrade( struct student *child ){
+void upgrade(Students *child ){
 
     if (child->sex == 'M' || child->sex == 'm') {
         child->gpa = child->gpa * 1.10;
         // 1.10 เท่ากับ 10%
-    } else if (child->sex == 'F' || child->sex == 'f'){
+    } else if (child->sex == 'F'|| child->sex == 'f'){
         // 1.20 เท่ากับ 20%
         child->gpa = child->gpa * 1.20;
     }
 }
 
 int main() {
-	struct student aboy ;
+	Students aboy ;
 
 	aboy.sex = 'M' ;
 	aboy.gpa = 3.00 ;
