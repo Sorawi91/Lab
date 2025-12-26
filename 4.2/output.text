@@ -1,2 +1,9 @@
-10 00000000006827B0 00000000005FFE78 00000000005FFE68 
-20 000000000067B2B0 00000000005FFE70 00000000005FFE68 
+After pointing to a
+Value via **pp: 10
+*pp (points to int*): 00000000005FFE7C
+pp  (int** itself):   00000000005FFE70
+
+After pointing to b
+Value via **pp: 20
+*pp (points to int*): 00000000005FFE78
+pp  (int** itself):   00000000005FFE68
