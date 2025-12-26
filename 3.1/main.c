@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-struct student {
+typedef struct {
 	char name[ 20 ] ;
 	int age ;
 	char sex ;
 	float gpa ;
-};
+} Students;
 
-void upgrade( struct student *child ){
+void upgrade(Students *child ){
 
     if (child->sex == 'M') {
         child->gpa = child->gpa * 1.10;
@@ -19,7 +19,7 @@ void upgrade( struct student *child ){
 }
 
 int main() {
-	struct student aboy ;
+	Students aboy ;
 
 	aboy.sex = 'M' ;
 	aboy.gpa = 3.00 ;
