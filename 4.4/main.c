@@ -11,27 +11,25 @@ typedef struct Student {
 } Student;
 
 Student *createStudent(const char *name, int age, char sex, float gpa);
-void moveNext(Student **current_ptr);
+void moveNext(Student **ptr);
 
 int main(void) {
     Student *head = NULL;
-    Student *current = NULL; 
-
+    Student *current = NULL;
 
     head = createStudent("one", 6, 'M', 3.11f);
     head->next = createStudent("two", 8, 'F', 3.22f);
     head->next->next = createStudent("three", 10, 'M', 3.33f);
 
-    current = head; 
+    current = head;
 
-    moveNext(&current); 
+    moveNext(&current);
 
     printf("Current student: %s\n", current->name);
 
-
     Student *temp = head;
     while (temp) {
-        Student *nextNode = temp->next; 
+        Student *nextNode = temp->next;
         free(temp);
         temp = nextNode;
     }
@@ -40,7 +38,7 @@ int main(void) {
 }
 
 Student *createStudent(const char *name, int age, char sex, float gpa) {
-    Student *new_node = malloc(sizeof(Student)); // เปลี่ยน p เป็น new_node
+    Student *new_node = malloc(sizeof(Student));
     strcpy(new_node->name, name);
     new_node->age = age;
     new_node->sex = sex;
@@ -49,8 +47,8 @@ Student *createStudent(const char *name, int age, char sex, float gpa) {
     return new_node;
 }
 
-void moveNext(Student **current_ptr) {
-    if (*current_ptr && (*current_ptr)->next) {
-        *current_ptr = (*current_ptr)->next;
+void moveNext(Student **ptr) {
+    if (*ptr && (*ptr)->next) {
+        *ptr = (*ptr)->next;
     }
 }
