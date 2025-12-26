@@ -1,32 +1,37 @@
 #include <stdio.h>
 
-typedef struct {
-	char name[ 20 ] ;
-	int age ;
-	char sex ;
-	float gpa ;
-} Students;
+typedef struct
+{
+    char name[20];
+    int age;
+    char sex;
+    float gpa;
+} Student;
 
-void upgrade(Students *child ){
+static Student upgrade(Student Gender)
+{
+    if (Gender.sex == 'M') {       
+        Gender.gpa = Gender.gpa + Gender.gpa * 0.10; 
+    } else
+        Gender.gpa = Gender.gpa + Gender.gpa * 0.20;
 
-    if (child->sex == 'M' || child->sex == 'm') {
-        child->gpa = child->gpa * 1.10;
-        // 1.10 เท่ากับ 10%
-    } else if (child->sex == 'F'|| child->sex == 'f'){
-        // 1.20 เท่ากับ 20%
-        child->gpa = child->gpa * 1.20;
-    }
+    printf("%.2f\n", Gender.gpa); 
+    return Gender;     
 }
 
-int main() {
-	Students aboy ;
+int main(void)
+{
+    Student Male;
 
-	aboy.sex = 'M' ;
-	aboy.gpa = 3.00 ;
+    Male.sex = 'M';  
+    Male.gpa = 3.00; 
 
-	upgrade( &aboy ) ;
+    printf("%.2f\n", Male.gpa); 
 
-	printf( "%.2f", aboy.gpa ) ;
+    Male = upgrade(Male);
 
-	return 0 ;
+    printf("%.2f\n", Male.gpa); 
+
+    return 0;
 }
+
