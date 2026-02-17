@@ -2,77 +2,72 @@
 #include <stdlib.h>
 #include <string.h>
 
-//โครงสร้างข้อมูล
-typedef struct studentNode {
+typedef struct node {
     char name[20];
     int age;
     char sex;
     float gpa;
-    struct studentNode *next;
-} studentNode;
+    struct node *next;
+} node;
 
 typedef struct {
-    studentNode *head;      
-    // ตัวแรกของ list
-    studentNode *current;   
-    // ตัวปัจจุบัน
-} LinkedList;
+    node *first;
+    node *point;
+} List;
 
-void initList(LinkedList *list);
-void insertNode(LinkedList *list, char name[], int age, char sex, float gpa);
-void deleteFirstNode(LinkedList *list);
-void goNext(LinkedList *list);
-void goFirst(LinkedList *list);
-void showAllNodes(LinkedList *list);
+/* prototype */
+void startList(List *L);
+void addData(List *L, char name[], int age, char sex, float gpa);
+void removeHead(List *L);
+void moveNext(List *L);
+void printList(List *L);
 
 int main() {
-    LinkedList listA, listB;
-    LinkedList *listC;
+    List A;
+    List B;
+    List *C;
 
-    initList(&listA);
-    initList(&listB);
+    startList(&A);
+    startList(&B);
 
-    //เพิ่มข้อมูล listA
-    insertNode(&listA, "one", 1, 'A', 1.1);
-    insertNode(&listA, "two", 2, 'B', 2.2);
-    insertNode(&listA, "three", 3, 'C', 3.3);
+    addData(&A, "one", 1, 'A', 1.1);
+    addData(&A, "two", 2, 'B', 2.2);
+    addData(&A, "three", 3, 'C', 3.3);
 
-    goNext(&listA);
-    showAllNodes(&listA);
+    moveNext(&A);
+    printList(&A);
 
-    // เพิ่มข้อมูล listB
-    insertNode(&listB, "four", 4, 'D', 4.4);
-    insertNode(&listB, "five", 5, 'E', 5.5);
-    insertNode(&listB, "six", 6, 'F', 6.6);
+    addData(&B, "four", 4, 'D', 4.4);
+    addData(&B, "five", 5, 'E', 5.5);
+    addData(&B, "six", 6, 'F', 6.6);
 
-    goNext(&listB);
-    deleteFirstNode(&listB);
-    showAllNodes(&listB);
+    moveNext(&B);
+    removeHead(&B);
+    printList(&B);
 
-    // ใช้ pointer ชี้ไปยัง listA
-    listC = &listA;
-    goNext(listC);
-    showAllNodes(listC);
+    C = &A;
+    moveNext(C);
+    printList(C);
 
-    // ใช้ pointer ชี้ไปยัง listB
-    listC = &listB;
-    showAllNodes(listC);
+    C = &B;
+    printList(C);
 
     return 0;
 }
 
-// เริ่มต้น list ให้เป็นค่าว่าง
-void initList(LinkedList *list) {
-    list->head = NULL;
-    list->current = NULL;
+/* ===== function part ===== */
+
+void startList(List *L) {
+    L->first = NULL;
+    L->point = NULL;
 }
 
-// เพิ่ม node ต่อท้าย
-void insertNode(LinkedList *list, char name[], int age, char sex, float gpa) {
-    studentNode *newNode = (studentNode *)malloc(sizeof(studentNode));
+void addData(List *L, char name[], int age, char sex, float gpa) {
+    node *newNode;
+    newNode = (node *)malloc(sizeof(node));
 
     if (newNode == NULL) {
-        printf("Memory allocation failed\n");
+        printf("no memory\n");
         return;
     }
 
@@ -82,50 +77,49 @@ void insertNode(LinkedList *list, char name[], int age, char sex, float gpa) {
     newNode->gpa = gpa;
     newNode->next = NULL;
 
-    if (list->head == NULL) {
-        list->head = newNode;
-        list->current = newNode;
+    if (L->first == NULL) {
+        L->first = newNode;
+        L->point = newNode;
     } else {
-        list->current->next = newNode;
-        list->current = newNode;
+        L->point->next = newNode;
+        L->point = newNode;
     }
 }
 
-// ลบ node ตัวแรก
-void deleteFirstNode(LinkedList *list) {
-    if (list->head == NULL) {
-        printf("List is empty\n");
+void removeHead(List *L) {
+    node *temp;
+
+    if (L->first == NULL) {
+        printf("empty list\n");
         return;
     }
 
-    studentNode *temp = list->head;
-    list->head = list->head->next;
+    temp = L->first;
+    L->first = L->first->next;
     free(temp);
 
-    if (list->head == NULL)
-        list->current = NULL;
-}
-
-// ไป node ถัดไป
-void goNext(LinkedList *list) {
-    if (list->current != NULL && list->current->next != NULL) {
-        list->current = list->current->next;
+    if (L->first == NULL) {
+        L->point = NULL;
     }
 }
 
-// กลับไป node แรก
-void goFirst(LinkedList *list) {
-    list->current = list->head;
+void moveNext(List *L) {
+    if (L->point != NULL) {
+        if (L->point->next != NULL) {
+            L->point = L->point->next;
+        }
+    }
 }
 
-// แสดงข้อมูลทั้งหมดใน list
-void showAllNodes(LinkedList *list) {
-    if (list->head == NULL) {
-        printf("List is empty\n");
+void printList(List *L) {
+    node *temp;
+
+    if (L->first == NULL) {
+        printf("empty list\n");
         return;
     }
 
-    studentNode *temp = list->head;
+    temp = L->first;
 
     while (temp != NULL) {
         printf("%s %d %c %.1f\n",
@@ -136,5 +130,5 @@ void showAllNodes(LinkedList *list) {
         temp = temp->next;
     }
 
-    printf("-----------------\n");
+    printf("------\n");
 }
