@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//โครงสร้าง
+//โครงสร้างข้อมูล
 typedef struct studentNode {
     char name[20];
     int age;
@@ -12,16 +12,18 @@ typedef struct studentNode {
 } studentNode;
 
 typedef struct {
-    studentNode *start;
-    studentNode *now;
+    studentNode *head;      
+    // ตัวแรกของ list
+    studentNode *current;   
+    // ตัวปัจจุบัน
 } LinkedList;
 
 void initList(LinkedList *list);
-void InsNode(LinkedList *list, char n[], int a, char s, float g);
-void DelNode(LinkedList *list);
-void GoNext(LinkedList *list);
-void GoFirst(LinkedList *list);
-void ShowNode(LinkedList *list);
+void insertNode(LinkedList *list, char name[], int age, char sex, float gpa);
+void deleteFirstNode(LinkedList *list);
+void goNext(LinkedList *list);
+void goFirst(LinkedList *list);
+void showAllNodes(LinkedList *list);
 
 int main() {
     LinkedList listA, listB;
@@ -30,74 +32,100 @@ int main() {
     initList(&listA);
     initList(&listB);
 
-    InsNode(&listA, "one", 1, 'A', 1.1);
-    InsNode(&listA, "two", 2, 'B', 2.2);
-    InsNode(&listA, "three", 3, 'C', 3.3);
-    GoNext(&listA);
-    ShowNode(&listA);
+    //เพิ่มข้อมูล listA
+    insertNode(&listA, "one", 1, 'A', 1.1);
+    insertNode(&listA, "two", 2, 'B', 2.2);
+    insertNode(&listA, "three", 3, 'C', 3.3);
 
-    InsNode(&listB, "four", 4, 'D', 4.4);
-    InsNode(&listB, "five", 5, 'E', 5.5);
-    InsNode(&listB, "six", 6, 'F', 6.6);
-    GoNext(&listB);
-    DelNode(&listB);
-    ShowNode(&listB);
+    goNext(&listA);
+    showAllNodes(&listA);
 
+    // เพิ่มข้อมูล listB
+    insertNode(&listB, "four", 4, 'D', 4.4);
+    insertNode(&listB, "five", 5, 'E', 5.5);
+    insertNode(&listB, "six", 6, 'F', 6.6);
+
+    goNext(&listB);
+    deleteFirstNode(&listB);
+    showAllNodes(&listB);
+
+    // ใช้ pointer ชี้ไปยัง listA
     listC = &listA;
-    GoNext(listC);
-    ShowNode(listC);
+    goNext(listC);
+    showAllNodes(listC);
 
+    // ใช้ pointer ชี้ไปยัง listB
     listC = &listB;
-    ShowNode(listC);
+    showAllNodes(listC);
 
     return 0;
 }
 
+// เริ่มต้น list ให้เป็นค่าว่าง
 void initList(LinkedList *list) {
-    list->start = NULL;
-    list->now = NULL;
+    list->head = NULL;
+    list->current = NULL;
 }
 
-void InsNode(LinkedList *list, char n[], int a, char s, float g) {
+// เพิ่ม node ต่อท้าย
+void insertNode(LinkedList *list, char name[], int age, char sex, float gpa) {
     studentNode *newNode = (studentNode *)malloc(sizeof(studentNode));
 
-    strcpy(newNode->name, n);
-    newNode->age = a;
-    newNode->sex = s;
-    newNode->gpa = g;
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+
+    strcpy(newNode->name, name);
+    newNode->age = age;
+    newNode->sex = sex;
+    newNode->gpa = gpa;
     newNode->next = NULL;
 
-    if (list->start == NULL) {
-        list->start = newNode;
-        list->now = newNode;
+    if (list->head == NULL) {
+        list->head = newNode;
+        list->current = newNode;
     } else {
-        list->now->next = newNode;
-        list->now = newNode;
+        list->current->next = newNode;
+        list->current = newNode;
     }
 }
 
-void DelNode(LinkedList *list) {
-    if (list->start == NULL) return;
+// ลบ node ตัวแรก
+void deleteFirstNode(LinkedList *list) {
+    if (list->head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
 
-    studentNode *temp = list->start;
-    list->start = list->start->next;
+    studentNode *temp = list->head;
+    list->head = list->head->next;
     free(temp);
 
-    if (list->start == NULL)
-        list->now = NULL;
+    if (list->head == NULL)
+        list->current = NULL;
 }
 
-void GoNext(LinkedList *list) {
-    if (list->now != NULL && list->now->next != NULL)
-        list->now = list->now->next;
+// ไป node ถัดไป
+void goNext(LinkedList *list) {
+    if (list->current != NULL && list->current->next != NULL) {
+        list->current = list->current->next;
+    }
 }
 
-void GoFirst(LinkedList *list) {
-    list->now = list->start;
+// กลับไป node แรก
+void goFirst(LinkedList *list) {
+    list->current = list->head;
 }
 
-void ShowNode(LinkedList *list) {
-    studentNode *temp = list->start;
+// แสดงข้อมูลทั้งหมดใน list
+void showAllNodes(LinkedList *list) {
+    if (list->head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    studentNode *temp = list->head;
 
     while (temp != NULL) {
         printf("%s %d %c %.1f\n",
@@ -107,5 +135,6 @@ void ShowNode(LinkedList *list) {
                temp->gpa);
         temp = temp->next;
     }
+
     printf("-----------------\n");
 }
