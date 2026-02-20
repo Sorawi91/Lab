@@ -1,0 +1,34 @@
+======= STUDENT MENU =======
+(1) Add Data
+(2) Edit Data
+(3) Delete Data
+(4) Find Student
+(5) Show All
+(0) Exit & Save
+Select Menu: 1
+Name: Sorawit
+Age: 2
+Sex (M/F): M
+GPA: 1.99
+Added successfully!
+
+======= STUDENT MENU =======
+(1) Add Data
+(2) Edit Data
+(3) Delete Data
+(4) Find Student
+(5) Show All
+(0) Exit & Save
+Select Menu: 5
+
+NAME            AGE   SEX   GPA
+Sorawit         2     M     1.99
+
+======= STUDENT MENU =======
+(1) Add Data
+(2) Edit Data
+(3) Delete Data
+(4) Find Student
+(5) Show All
+(0) Exit & Save
+Select Menu:
