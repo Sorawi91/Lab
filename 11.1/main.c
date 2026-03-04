@@ -1,39 +1,42 @@
 #include <stdio.h>
 
-// ประกาศ Prototype ของฟังก์ชัน
-int BinSearch( int data[], int n, int find ) ;
+#define ARRAY_SIZE 6
+
+
+int binarySearch(int dataArray[], int size, int targetValue);
 
 int main() {
-    int data[ 6 ] = { 1, 2, 3, 4, 5, 7 } ;
-    int n = 6, find = 5 ;
-    int pos = BinSearch( data, n, find ) ;
+    int data[ARRAY_SIZE] = {1, 2, 3, 4, 5, 7};
     
-    // แสดงผลลัพธ์ให้ตรงตาม Test Case 1
-    if ( pos != -1 ) {
-        printf( "Found %d at %d", find, pos ) ;
+    int targetValue = 5;
+    
+    int resultPosition = binarySearch(data, ARRAY_SIZE, targetValue);
+    
+    if (resultPosition != -1) {
+        printf("Found %d at %d\n", targetValue, resultPosition);
     } else {
-        printf( "%d not found", find ) ;
+        printf("%d not found\n", targetValue);
     }
     
-    return 0 ;
+    return 0;
 }
 
-// ฟังก์ชัน Binary Search
-int BinSearch( int data[], int n, int find ) {
-    int low = 0 ;
-    int high = n - 1 ;
+int binarySearch(int dataArray[], int size, int targetValue) {
+    int lowIndex = 0;
+    int highIndex = size - 1;
     
-    while ( low <= high ) {
-        int mid = ( low + high ) / 2 ;
+    while (lowIndex <= highIndex) {
+
+        int midIndex = lowIndex + (highIndex - lowIndex) / 2;
         
-        if ( data[ mid ] == find ) {
-            return mid ; 
-        } else if ( data[ mid ] < find ) {
-            low = mid + 1 ; 
+        if (dataArray[midIndex] == targetValue) {
+            return midIndex; 
+        } else if (dataArray[midIndex] < targetValue) {
+            lowIndex = midIndex + 1; 
         } else {
-            high = mid - 1 ;
+            highIndex = midIndex - 1;
         }
     }
     
-    return -1 ;
+    return -1;
 }
